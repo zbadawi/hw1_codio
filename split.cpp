@@ -123,26 +123,7 @@ helper (in, odds, evens);
 
 /* If you needed a helper function, write it here */
 Node*& helper (Node*& in, Node*& odds, Node*& evens){
-  function splitEvenOdd(head, evens, odds) {
-  if (!head) {
-    return;
-  }
-  if (head.value % 2 === 0) {
-    if (!evens) {
-      evens = head;
-    } else {
-      evens.next = head;
-    }
-  } else {
-    if (!odds) {
-      odds = head;
-    } else {
-      odds.next = head;
-    }
-  }
-  splitEvenOdd(head.next, evens, odds);
-}
-  
+
   if (in == nullptr){
     return nullptr;
   }
