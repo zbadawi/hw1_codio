@@ -122,40 +122,72 @@ helper (in, odds, evens);
 }
 
 /* If you needed a helper function, write it here */
-Node* helper (Node* in, Node* odds, Node* evens){
+Node*& helper (Node*& in, Node*& odds, Node*& evens){
+  function splitEvenOdd(head, evens, odds) {
+  if (!head) {
+    return;
+  }
+  if (head.value % 2 === 0) {
+    if (!evens) {
+      evens = head;
+    } else {
+      evens.next = head;
+    }
+  } else {
+    if (!odds) {
+      odds = head;
+    } else {
+      odds.next = head;
+    }
+  }
+  splitEvenOdd(head.next, evens, odds);
+}
+  
   if (in == nullptr){
     return nullptr;
-  } else if (in->value %2){
-    odds = in;
-    return helper (in->next, in->next, evens);
-  } else {
-    evens = in;
-    return helper(in->next, odds, in->next);
   }
-
-  if (in->value %2 ==0){
-    evens = in; //is this correct with pointers
-  } else {
-    odds = in; //is this correct with pointers
-  }
-
-  if (in->next != nullptr){
-    if (in->next->value %2 ==0) {
-      if (evens) {
-        evens->next = helper(in->next, odds, evens->next);
-      } else {
-        evens = helper(in->next, odds, evens);
-      }
+  
+  if (in->value %2){
+    if (odds == nullptr) {
+      odds = in;
     } else {
-      if (odds) {
-        odds->next = helper(in->next, odds->next, evens);
-      } else {
-        odds = helper(in->next, odds, evens);
-      }
+      odds->next =  helper (in->next, odds, evens);
     }
-
-    return in;
+  } else {
+    if (evens == nullptr){
+      evens = in;
+    }
+  } else {
+    evens->next = helper(in->next, odds, in->next);
   }
+
+  return in;
+
+
+
+  // if (in->value %2 ==0){
+  //   evens = in; //is this correct with pointers
+  // } else {
+  //   odds = in; //is this correct with pointers
+  // }
+
+  // if (in->next != nullptr){
+  //   if (in->next->value %2 ==0) {
+  //     if (evens) {
+  //       evens->next = helper(in->next, odds, evens->next);
+  //     } else {
+  //       evens = helper(in->next, odds, evens);
+  //     }
+  //   } else {
+  //     if (odds) {
+  //       odds->next = helper(in->next, odds->next, evens);
+  //     } else {
+  //       odds = helper(in->next, odds, evens);
+  //     }
+  //   }
+
+  //   return in;
+  // }
 
   // evens->next = helper (in->next, odds, evens);
   // odds->next = helper (in->next, odds, evens);
